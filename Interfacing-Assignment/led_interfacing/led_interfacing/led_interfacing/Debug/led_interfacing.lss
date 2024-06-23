@@ -1,0 +1,248 @@
+
+led_interfacing.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000150  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  000001a4  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  000001a4  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000001d4  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000088  00000000  00000000  00000210  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00000dfd  00000000  00000000  00000298  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000691  00000000  00000000  00001095  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000621  00000000  00000000  00001726  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000104  00000000  00000000  00001d48  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    0000042f  00000000  00000000  00001e4c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    0000075a  00000000  00000000  0000227b  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000068  00000000  00000000  000029d5  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   8:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  10:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  14:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  18:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  1c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  20:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  24:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  28:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  2c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  30:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  34:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  38:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  3c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  40:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  44:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  48:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  4c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  50:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d8 e0       	ldi	r29, 0x08	; 8
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+  60:	0e 94 9b 00 	call	0x136	; 0x136 <main>
+  64:	0c 94 a6 00 	jmp	0x14c	; 0x14c <_exit>
+
+00000068 <__bad_interrupt>:
+  68:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000006c <DIO_voidSetPortDir>:
+	}
+	
+}
+
+void DIO_voidSetPortDir(u8 copy_u8port,u8 copy_u8dir){
+	switch(copy_u8port){
+  6c:	81 30       	cpi	r24, 0x01	; 1
+  6e:	41 f0       	breq	.+16     	; 0x80 <DIO_voidSetPortDir+0x14>
+  70:	28 f0       	brcs	.+10     	; 0x7c <DIO_voidSetPortDir+0x10>
+  72:	82 30       	cpi	r24, 0x02	; 2
+  74:	39 f0       	breq	.+14     	; 0x84 <DIO_voidSetPortDir+0x18>
+  76:	83 30       	cpi	r24, 0x03	; 3
+  78:	39 f0       	breq	.+14     	; 0x88 <DIO_voidSetPortDir+0x1c>
+  7a:	08 95       	ret
+		case DIO_PORTA:DDRA_REG=copy_u8dir;break ;
+  7c:	6a bb       	out	0x1a, r22	; 26
+  7e:	08 95       	ret
+		case DIO_PORTB:DDRB_REG=copy_u8dir;break ;
+  80:	67 bb       	out	0x17, r22	; 23
+  82:	08 95       	ret
+		case DIO_PORTC:DDRC_REG=copy_u8dir;break ;
+  84:	64 bb       	out	0x14, r22	; 20
+  86:	08 95       	ret
+		case DIO_PORTD:DDRD_REG=copy_u8dir;break ;
+  88:	61 bb       	out	0x11, r22	; 17
+  8a:	08 95       	ret
+
+0000008c <DIO_voidSetPortVal>:
+	}
+	
+}
+void DIO_voidSetPortVal(u8 copy_u8port,u8 copy_u8val){
+	
+	switch(copy_u8port){
+  8c:	81 30       	cpi	r24, 0x01	; 1
+  8e:	41 f0       	breq	.+16     	; 0xa0 <DIO_voidSetPortVal+0x14>
+  90:	28 f0       	brcs	.+10     	; 0x9c <DIO_voidSetPortVal+0x10>
+  92:	82 30       	cpi	r24, 0x02	; 2
+  94:	39 f0       	breq	.+14     	; 0xa4 <DIO_voidSetPortVal+0x18>
+  96:	83 30       	cpi	r24, 0x03	; 3
+  98:	39 f0       	breq	.+14     	; 0xa8 <DIO_voidSetPortVal+0x1c>
+  9a:	08 95       	ret
+		case DIO_PORTA:PORTA_REG=copy_u8val;break ;
+  9c:	6b bb       	out	0x1b, r22	; 27
+  9e:	08 95       	ret
+		case DIO_PORTB:PORTB_REG=copy_u8val;break ;
+  a0:	68 bb       	out	0x18, r22	; 24
+  a2:	08 95       	ret
+		case DIO_PORTC:PORTC_REG=copy_u8val;break ;
+  a4:	65 bb       	out	0x15, r22	; 21
+  a6:	08 95       	ret
+		case DIO_PORTD:PORTD_REG=copy_u8val;break ;
+  a8:	62 bb       	out	0x12, r22	; 18
+  aa:	08 95       	ret
+
+000000ac <shift_right>:
+	_delay_ms(100);
+	DIO_voidSetPortVal(DIO_PORTA, 0b00000000);
+}
+
+void shift_right()
+{
+  ac:	cf 93       	push	r28
+  ae:	df 93       	push	r29
+	DIO_voidSetPortVal(DIO_PORTA, 0b10000000);
+  b0:	60 e8       	ldi	r22, 0x80	; 128
+  b2:	80 e0       	ldi	r24, 0x00	; 0
+  b4:	0e 94 46 00 	call	0x8c	; 0x8c <DIO_voidSetPortVal>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  b8:	2f ef       	ldi	r18, 0xFF	; 255
+  ba:	81 ee       	ldi	r24, 0xE1	; 225
+  bc:	94 e0       	ldi	r25, 0x04	; 4
+  be:	21 50       	subi	r18, 0x01	; 1
+  c0:	80 40       	sbci	r24, 0x00	; 0
+  c2:	90 40       	sbci	r25, 0x00	; 0
+  c4:	e1 f7       	brne	.-8      	; 0xbe <shift_right+0x12>
+  c6:	00 c0       	rjmp	.+0      	; 0xc8 <shift_right+0x1c>
+  c8:	00 00       	nop
+	_delay_ms(100);
+	DIO_voidSetPortVal(DIO_PORTA, 0b01000000);
+  ca:	60 e4       	ldi	r22, 0x40	; 64
+  cc:	80 e0       	ldi	r24, 0x00	; 0
+  ce:	0e 94 46 00 	call	0x8c	; 0x8c <DIO_voidSetPortVal>
+  d2:	2f ef       	ldi	r18, 0xFF	; 255
+  d4:	84 e6       	ldi	r24, 0x64	; 100
+  d6:	94 e0       	ldi	r25, 0x04	; 4
+  d8:	21 50       	subi	r18, 0x01	; 1
+  da:	80 40       	sbci	r24, 0x00	; 0
+  dc:	90 40       	sbci	r25, 0x00	; 0
+  de:	e1 f7       	brne	.-8      	; 0xd8 <shift_right+0x2c>
+  e0:	00 c0       	rjmp	.+0      	; 0xe2 <shift_right+0x36>
+  e2:	00 00       	nop
+	_delay_ms(90);
+	DIO_voidSetPortVal(DIO_PORTA, 0b00000000);
+  e4:	60 e0       	ldi	r22, 0x00	; 0
+  e6:	80 e0       	ldi	r24, 0x00	; 0
+  e8:	0e 94 46 00 	call	0x8c	; 0x8c <DIO_voidSetPortVal>
+	for (int i = 0; i < 10; i++) {
+  ec:	c0 e0       	ldi	r28, 0x00	; 0
+  ee:	d0 e0       	ldi	r29, 0x00	; 0
+  f0:	18 c0       	rjmp	.+48     	; 0x122 <shift_right+0x76>
+		DIO_voidSetPortVal(LED_PORT, (1 << (NUM_LEDS - 1 - i))); // Shift right
+  f2:	89 e0       	ldi	r24, 0x09	; 9
+  f4:	90 e0       	ldi	r25, 0x00	; 0
+  f6:	8c 1b       	sub	r24, r28
+  f8:	9d 0b       	sbc	r25, r29
+  fa:	61 e0       	ldi	r22, 0x01	; 1
+  fc:	70 e0       	ldi	r23, 0x00	; 0
+  fe:	02 c0       	rjmp	.+4      	; 0x104 <shift_right+0x58>
+ 100:	66 0f       	add	r22, r22
+ 102:	77 1f       	adc	r23, r23
+ 104:	8a 95       	dec	r24
+ 106:	e2 f7       	brpl	.-8      	; 0x100 <shift_right+0x54>
+ 108:	81 e0       	ldi	r24, 0x01	; 1
+ 10a:	0e 94 46 00 	call	0x8c	; 0x8c <DIO_voidSetPortVal>
+ 10e:	2f ef       	ldi	r18, 0xFF	; 255
+ 110:	81 ee       	ldi	r24, 0xE1	; 225
+ 112:	94 e0       	ldi	r25, 0x04	; 4
+ 114:	21 50       	subi	r18, 0x01	; 1
+ 116:	80 40       	sbci	r24, 0x00	; 0
+ 118:	90 40       	sbci	r25, 0x00	; 0
+ 11a:	e1 f7       	brne	.-8      	; 0x114 <shift_right+0x68>
+ 11c:	00 c0       	rjmp	.+0      	; 0x11e <shift_right+0x72>
+ 11e:	00 00       	nop
+	DIO_voidSetPortVal(DIO_PORTA, 0b10000000);
+	_delay_ms(100);
+	DIO_voidSetPortVal(DIO_PORTA, 0b01000000);
+	_delay_ms(90);
+	DIO_voidSetPortVal(DIO_PORTA, 0b00000000);
+	for (int i = 0; i < 10; i++) {
+ 120:	21 96       	adiw	r28, 0x01	; 1
+ 122:	ca 30       	cpi	r28, 0x0A	; 10
+ 124:	d1 05       	cpc	r29, r1
+ 126:	2c f3       	brlt	.-54     	; 0xf2 <shift_right+0x46>
+		DIO_voidSetPortVal(LED_PORT, (1 << (NUM_LEDS - 1 - i))); // Shift right
+		_delay_ms(100);
+	}
+	
+	DIO_voidSetPortVal(LED_PORT,0b00000000);
+ 128:	60 e0       	ldi	r22, 0x00	; 0
+ 12a:	81 e0       	ldi	r24, 0x01	; 1
+ 12c:	0e 94 46 00 	call	0x8c	; 0x8c <DIO_voidSetPortVal>
+}
+ 130:	df 91       	pop	r29
+ 132:	cf 91       	pop	r28
+ 134:	08 95       	ret
+
+00000136 <main>:
+void snake_effect();
+
+int main(void)
+{
+	// Set all LED pins to output
+	DIO_voidSetPortDir(LED_PORT, 0xFF); // Set entire port to output
+ 136:	6f ef       	ldi	r22, 0xFF	; 255
+ 138:	81 e0       	ldi	r24, 0x01	; 1
+ 13a:	0e 94 36 00 	call	0x6c	; 0x6c <DIO_voidSetPortDir>
+	DIO_voidSetPortDir(DIO_PORTA, 0b11000000); 
+ 13e:	60 ec       	ldi	r22, 0xC0	; 192
+ 140:	80 e0       	ldi	r24, 0x00	; 0
+ 142:	0e 94 36 00 	call	0x6c	; 0x6c <DIO_voidSetPortDir>
+	while (1)
+	{
+		//flash_leds();
+		//shift_left();
+		shift_right();
+ 146:	0e 94 56 00 	call	0xac	; 0xac <shift_right>
+ 14a:	fd cf       	rjmp	.-6      	; 0x146 <main+0x10>
+
+0000014c <_exit>:
+ 14c:	f8 94       	cli
+
+0000014e <__stop_program>:
+ 14e:	ff cf       	rjmp	.-2      	; 0x14e <__stop_program>
